@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start Time"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/darker_gray"
                 android:textAppearance="?attr/textAppearanceLabelMedium" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="End Time"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/darker_gray"
                 android:textAppearance="?attr/textAppearanceLabelMedium" />
 
             <TextView
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Priority"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/darker_gray"
         android:textAppearance="?attr/textAppearanceLabelMedium" />
 
     <RadioGroup
@@ -104,10 +104,11 @@
             android:layout_weight="1"
             android:background="@drawable/priority_high_radio_selector"
             android:button="@null"
-            android:drawableTop="@drawable/ic_priority_high"
-            android:drawableTint="@color/priority_icon_tint_selector"
             android:gravity="center"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:text="High"
+            android:textSize="12sp"
+            android:textColor="@color/priority_radio_text_selector" />
 
         <RadioButton
             android:id="@+id/priorityMediumRadioButton"
@@ -118,10 +119,11 @@
             android:layout_weight="1"
             android:background="@drawable/priority_medium_radio_selector"
             android:button="@null"
-            android:drawableTop="@drawable/ic_priority_medium"
-            android:drawableTint="@color/priority_icon_tint_selector"
             android:gravity="center"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:text="Medium"
+            android:textSize="12sp"
+            android:textColor="@color/priority_radio_text_selector" />
 
         <RadioButton
             android:id="@+id/priorityLowRadioButton"
@@ -130,10 +132,11 @@
             android:layout_weight="1"
             android:background="@drawable/priority_low_radio_selector"
             android:button="@null"
-            android:drawableTop="@drawable/ic_priority_low"
-            android:drawableTint="@color/priority_icon_tint_selector"
             android:gravity="center"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:text="Low"
+            android:textSize="12sp"
+            android:textColor="@color/priority_radio_text_selector" />
 
     </RadioGroup>
 
