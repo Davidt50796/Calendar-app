@@ -10,4 +10,6 @@
     <color name="on_priority_high">#FFFFFF</color>
     <color name="on_priority_medium">#000000</color>
     <color name="on_priority_low">#000000</color>
+
+    <color name="strong_dark_gray">#1C1C1E</color>
 </resources>
