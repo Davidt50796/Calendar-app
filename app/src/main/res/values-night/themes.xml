@@ -17,11 +17,11 @@
     <style name="Theme.KotlinExercise_1" parent="Base.Theme.KotlinExercise_1" />
 
     <style name="CalendarView.Custom" parent="Widget.MaterialComponents.MaterialCalendar">
-        <item name="android:background">#1C1C1E</item>
-        <item name="headerColor">#1C1C1E</item>
+        <item name="android:background">@android:color/black</item>
+        <item name="headerColor">@android:color/black</item>
         <item name="headerLabelColor">@android:color/white</item>
         <item name="todayLabelColor">@android:color/white</item>
-        <item name="selectionColor">#424242</item>
+        <item name="selectionColor">#81D4FA</item>
         <item name="daysLabelsColor">@android:color/white</item>
         <item name="anotherMonthsDaysLabelsColor">@android:color/darker_gray</item>
     </style>

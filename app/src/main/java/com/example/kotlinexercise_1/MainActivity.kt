@@ -11,11 +11,9 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -24,14 +22,11 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.recyclerview.widget.RecyclerView
-import com.applandeo.materialcalendarview.CalendarDay
-import com.applandeo.materialcalendarview.CalendarView
-import com.applandeo.materialcalendarview.EventDay
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 /**
@@ -40,7 +35,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
 
     // Views
-    private lateinit var calendarView: CalendarView
+    private lateinit var calendarView: CustomCalendarView
     private lateinit var taskRecyclerView: RecyclerView
     private lateinit var addTaskFab: FloatingActionButton
     private lateinit var taskAdapter: TaskAdapter
@@ -53,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     // Utilities
     private val gson = Gson()
     private val prefs by lazy { getSharedPreferences("tasks", MODE_PRIVATE) }
-    private val priorities = listOf("High", "Medium", "Low")
 
     /**
      * Registers a callback for the result of requesting a permission.
@@ -83,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         noTasksTextView = findViewById(R.id.noTasksTextView)
 
         // Set the initial selected date
-        selectedDate = calendarView.selectedDates.firstOrNull()?.timeInMillis ?: Calendar.getInstance().timeInMillis
+        selectedDate = Calendar.getInstance().timeInMillis
 
         // Load tasks from shared preferences
         loadTasks()
@@ -94,14 +88,10 @@ class MainActivity : AppCompatActivity() {
         }
         taskRecyclerView.adapter = taskAdapter
 
-        // Set up the calendar view
-        calendarView.setOnDayClickListener(object : OnDayClickListener {
-            override fun onDayClick(eventDay: EventDay) {
-                selectedDate = eventDay.calendar.timeInMillis
-                filterTasks(selectedDate)
-                updateCalendarDays()
-            }
-        })
+        calendarView.onDateClickListener = { date: Date ->
+            selectedDate = date.time
+            filterTasks(selectedDate)
+        }
 
         // Set up the add task button
         addTaskFab.setOnClickListener {
@@ -167,7 +157,7 @@ class MainActivity : AppCompatActivity() {
                     saveTasks()
                     filterTasks(selectedDate)
                     scheduleNotification(newTask)
-                    updateCalendarDays()
+                    updateCalendarView()
                 }
             }
             .setNegativeButton("Cancel", null)
@@ -231,7 +221,7 @@ class MainActivity : AppCompatActivity() {
                     saveTasks()
                     filterTasks(selectedDate)
                     scheduleNotification(task)
-                    updateCalendarDays()
+                    updateCalendarView()
                 }
             }
             .setNegativeButton("Cancel", null)
@@ -239,7 +229,7 @@ class MainActivity : AppCompatActivity() {
                 allTasks.remove(task)
                 saveTasks()
                 filterTasks(selectedDate)
-                updateCalendarDays()
+                updateCalendarView()
             }
             .show()
     }
@@ -310,32 +300,12 @@ class MainActivity : AppCompatActivity() {
             allTasks.add(Task("Meeting with team", today, "10:00", "11:00", "High"))
             allTasks.add(Task("Work on project", today, "14:00", "16:00", "Medium"))
         }
-        updateCalendarDays()
+        updateCalendarView()
     }
 
-    /**
-     * Updates the calendar to show which days have tasks.
-     */
-    private fun updateCalendarDays() {
-        val events = allTasks.map { task ->
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = task.date
-            EventDay(calendar, R.drawable.day_background)
-        }
-        calendarView.setEvents(events)
-    }
-
-    /**
-     * Returns a list of times in 15-minute intervals.
-     */
-    private fun getTimes(): List<String> {
-        val times = mutableListOf<String>()
-        for (h in 0..23) {
-            for (m in 0..59 step 15) {
-                times.add(String.format(Locale.US, "%02d:%02d", h, m))
-            }
-        }
-        return times
+    private fun updateCalendarView() {
+        val taskDates = allTasks.map { Date(it.date) }
+        calendarView.setTaskDates(taskDates)
     }
 
     /**

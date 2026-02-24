@@ -104,10 +104,10 @@
             android:layout_weight="1"
             android:background="@drawable/priority_high_radio_selector"
             android:button="@null"
+            android:drawableTop="@drawable/ic_priority_high"
+            android:drawableTint="@color/priority_icon_tint_selector"
             android:gravity="center"
-            android:padding="12dp"
-            android:text="High"
-            android:textColor="@color/priority_radio_text_selector" />
+            android:padding="12dp" />
 
         <RadioButton
             android:id="@+id/priorityMediumRadioButton"
@@ -118,10 +118,10 @@
             android:layout_weight="1"
             android:background="@drawable/priority_medium_radio_selector"
             android:button="@null"
+            android:drawableTop="@drawable/ic_priority_medium"
+            android:drawableTint="@color/priority_icon_tint_selector"
             android:gravity="center"
-            android:padding="12dp"
-            android:text="Medium"
-            android:textColor="@color/priority_radio_text_selector" />
+            android:padding="12dp" />
 
         <RadioButton
             android:id="@+id/priorityLowRadioButton"
@@ -130,10 +130,10 @@
             android:layout_weight="1"
             android:background="@drawable/priority_low_radio_selector"
             android:button="@null"
+            android:drawableTop="@drawable/ic_priority_low"
+            android:drawableTint="@color/priority_icon_tint_selector"
             android:gravity="center"
-            android:padding="12dp"
-            android:text="Low"
-            android:textColor="@color/priority_radio_text_selector" />
+            android:padding="12dp" />
 
     </RadioGroup>
 
